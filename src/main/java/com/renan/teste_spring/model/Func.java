@@ -1,18 +1,18 @@
 package com.renan.teste_spring.model;
 
-public class User {
+public class Func {
     private long id;
     private String name;
-    private String arroba;
+    private String função;
     private String cpf;
 
-    public User (){
+    public Func (){
 
     }
 
-    public User(long id, String name, String arroba, String cpf){
+    public Func(long id, String name, String função, String cpf){
         this.id = id;
-        this.arroba = arroba;
+        this.função = função;
         this.name = name;
         this.cpf = cpf;
 
@@ -26,16 +26,16 @@ public class User {
         return id;
     }
 
-    public String getArroba() {
-        return arroba;
+    public String getFunção() {
+        return função;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setArroba(String arroba) {
-        this.arroba = arroba;
+    public void setFunção(String função) {
+        this.função = função;
     }
 
     public void setCpf(String cpf) {

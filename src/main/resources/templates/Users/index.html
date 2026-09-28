@@ -3,32 +3,32 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Lista de Usuários</title>
+    <title>Lista de Funcionários</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 <body>
 <div class="container pt-3">
-    <a th:href="@{'/users/new'}" class="btn btn-primary float-end">Novo Usuário</a>
-    <h1>Lista Usuários (<span th:text="${size}">0</span>)</h1>
+    <a th:href="@{'/funcs/new'}" class="btn btn-primary float-end">Novo funcionário</a>
+    <h1>Lista funcionários (<span th:text="${size}">0</span>)</h1>
     <hr>
     <table class="table">
         <thead>
         <tr>
             <th scope="col">#</th>
             <th scope="col">Nome</th>
-            <th scope="col">Arroba</th>
+            <th scope="col">Função</th>
             <th scope="col">CPF</th>
             <th scope="col">Ações</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="user : ${users}">
-            <th scope="row" th:text="${user.getId}">1</th>
-            <td th:text="${user.getName}">Mark</td>
-            <td th:text="${user.getArroba}">Otto</td>
-            <td th:text="${user.getCpf}">@mdo</td>
+        <tr th:each="user : ${funcs}">
+            <th scope="row" th:text="${func.getId}">1</th>
+            <td th:text="${func.getName}">Mark</td>
+            <td th:text="${func.getFunção}">Otto</td>
+            <td th:text="${func.getCpf}">@mdo</td>
             <td>
-                <a  th:href="@{|/users/show/${user.id}|}" class="btn btn-danger">Detalhes</a>
+                <a  th:href="@{|/funcs/show/${func.id}|}" class="btn btn-success">Detalhes</a>
             </td>
         </tr>
         </tbody>
