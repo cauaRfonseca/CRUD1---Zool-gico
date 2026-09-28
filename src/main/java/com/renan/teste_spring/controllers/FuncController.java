@@ -75,5 +75,12 @@ public class FuncController {
         model.addAttribute("func", funcShow);
         return "/funcs/show";
     }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id) {
+        int idInt = Math.toIntExact((id-1L));
+        listFunc.remove(idInt);
+        return "redirect:/funcs/index";
+    }
 }
 
