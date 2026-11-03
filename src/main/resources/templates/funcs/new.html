@@ -8,24 +8,24 @@
 </head>
 <body>
 <div class="container pt-3">
-    <a th:href="@{'/users/index'}" class="btn btn-primary float-end">Voltar</a>
+    <a th:href="@{'/funcs/index'}" class="btn btn-primary float-end">Voltar</a>
     <h1>Novo Usuário</h1>
     <hr>
-    <form method="post" th:action="@{/users/create}" th:object="${user}">
+    <form method="post" th:action="@{/funcs/create}" th:object="${user}">
         <div class="mb-3">
             <label for="name" class="form-label">Nome</label>
             <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp" >
         </div>
         <div class="mb-3">
-            <label for="name" class="form-label">@</label>
-            <input type="text" class="form-control" id="arroba" name="arroba" aria-describedby="emailHelp" >
+            <label for="name" class="form-label">E-mail</label>
+            <input type="text" class="form-control" id="função" name="função" aria-describedby="emailHelp" >
         </div>
         <div class="mb-3">
             <label for="name" class="form-label">CPF</label>
             <input type="text" class="form-control" id="cpf" name="cpf" aria-describedby="emailHelp" >
         </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Criar</button>
     </form>
 
 </div>

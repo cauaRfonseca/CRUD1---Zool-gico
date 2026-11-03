@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="container pt-3">
-    <a th:href="@{'/users/index'}" class="btn btn-secondary float-end">Voltar para Lista</a>
+    <a th:href="@{'/funcs/index'}" class="btn btn-secondary float-end">Voltar para Lista</a>
     <h1>Detalhes do Usuário</h1>
     <hr>
 
@@ -24,10 +24,10 @@
         <div class="card-body">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
-                    <strong>Nome:</strong> <span th:text="${user.name}">Mark</span>
+                    <strong>Nome:</strong> <span th:text="${func.name}">Mark</span>
                 </li>
                 <li class="list-group-item">
-                    <strong>Arroba:</strong> <span th:text="${user.arroba}">Otto</span>
+                    <strong>Arroba:</strong> <span th:text="${func.arroba}">Otto</span>
                 </li>
                 <li class="list-group-item">
                     <strong>CPF:</strong> <span th:text="${user.cpf}">000.000.000-00</span>
