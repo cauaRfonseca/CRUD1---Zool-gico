@@ -1,7 +1,8 @@
 package com.renan.teste_spring.model;
 
-public class Func {
-    private long id;
+import org.javalite.activejdbc.Model;
+
+public class Func extends Model {
     private String name;
     private String função;
     private String cpf;
@@ -10,8 +11,7 @@ public class Func {
 
     }
 
-    public Func(long id, String name, String função, String cpf){
-        this.id = id;
+    public Func(String name, String função, String cpf){
         this.função = função;
         this.name = name;
         this.cpf = cpf;
@@ -20,10 +20,6 @@ public class Func {
 
     public String getCpf() {
         return cpf;
-    }
-
-    public long getId() {
-        return id;
     }
 
     public String getFunção() {
@@ -40,10 +36,6 @@ public class Func {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public void setName(String name) {

@@ -1,6 +1,7 @@
 package com.renan.teste_spring.controllers;
 
 import com.renan.teste_spring.model.Func;
+import org.javalite.activejdbc.Base;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +16,25 @@ public class FuncController {
 
     @GetMapping("/index")
     public String index(ModelMap model){
-        model.addAttribute("funcs", listFunc);
-        model.addAttribute("size", listFunc.size());
+        try {
+            // 1. Abre a Conexão
+            Base.open("org.sqlite.JDBC", "jdbc:sqlite:meu_app.db", "", "");
+
+            // 3. Busca Todos os usuários do banco
+            List<Func> funcs = new ArrayList<>(Func.findAll());
+            model.addAttribute("funcs", funcs);
+
+            // 4. Conta Tudo
+            model.addAttribute("size", Func.count());
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        } finally {
+            // 5. Fecha a conexão para não travar o banco
+            Base.close();
+        }
+
         return "funcs/index";
     }
 
@@ -37,7 +55,7 @@ public class FuncController {
 
         // Passa o objeto de volta para exibir os dados na tela de sucesso
         long id = listFunc.size()+1;
-        listFunc.add(new Func(id, func.getName(), func.getFunção(), func.getCpf()));
+        listFunc.add(new Func(func.getName(), func.getFunção(), func.getCpf()));
         model.addAttribute("func", func);
         return "redirect:/funcs/index";
     }
