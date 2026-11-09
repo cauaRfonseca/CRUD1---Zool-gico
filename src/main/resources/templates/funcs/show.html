@@ -19,7 +19,7 @@
 
     <div class="card mt-4" style="max-width: 600px;">
         <div class="card-header">
-            <strong>Usuário #<span th:text="${user.id}">1</span></strong>
+            <strong>Usuário #<span th:text="${func.id}">1</span></strong>
         </div>
         <div class="card-body">
             <ul class="list-group list-group-flush">
@@ -27,22 +27,22 @@
                     <strong>Nome:</strong> <span th:text="${func.name}">Mark</span>
                 </li>
                 <li class="list-group-item">
-                    <strong>Arroba:</strong> <span th:text="${func.arroba}">Otto</span>
+                    <strong>Arroba:</strong> <span th:text="${func.função}">Otto</span>
                 </li>
                 <li class="list-group-item">
-                    <strong>CPF:</strong> <span th:text="${user.cpf}">000.000.000-00</span>
+                    <strong>CPF:</strong> <span th:text="${func.cpf}">000.000.000-00</span>
                 </li>
             </ul>
         </div>
         <div class="card-footer d-flex gap-2">
             <!-- Botão de Editar -->
-            <a th:href="@{|/users/edit/${user.id}|}" class="btn btn-primary">
+            <a th:href="@{|/funcs/edit/${func.id}|}" class="btn btn-primary">
                 <i class="bi bi-pencil"></i> Editar
             </a>
 
-            <button type="submit" class="btn btn-danger">
+            <a th:href="@{|/funcs/delete/${func.id}|}" class="btn btn-danger">
                 <i class="bi bi-trash"></i> Excluir
-            </button>
+            </a>
 
         </div>
     </div>

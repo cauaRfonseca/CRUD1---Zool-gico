@@ -8,18 +8,18 @@
 </head>
 <body>
 <div class="container pt-3">
-    <a th:href="@{'/users/index'}" class="btn btn-primary float-end">Voltar</a>
-    <h1> Editar Usuário (<span th:text="${user.getName()}"></span>)</h1>
+    <a th:href="@{'/funcs/index'}" class="btn btn-primary float-end">Voltar</a>
+    <h1> Editar Usuário (<span th:text="${func.getName()}"></span>)</h1>
     <hr>
-    <form method="post" th:action=" @{|/users/update/${user.id}|}" th:object="${user}">
-        <input th:if="${user.id != null}" type="hidden" name="_method" value="put" />
+    <form method="post" th:action=" @{|/funcs/update/${func.id}|}" th:object="${func}">
+        <input th:if="${func.id != null}" type="hidden" name="_method" value="put" />
         <div class="mb-3">
             <label for="name" class="form-label">Nome</label>
             <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp"  th:field="*{name}" >
         </div>
         <div class="mb-3">
-            <label for="name" class="form-label">@</label>
-            <input type="text" class="form-control" id="arroba" name="arroba" aria-describedby="emailHelp"  th:field="*{arroba}" >
+            <label for="name" class="form-label">Função</label>
+            <input type="text" class="form-control" id="função" name="função" aria-describedby="emailHelp"  th:field="*{função}" >
         </div>
         <div class="mb-3">
             <label for="name" class="form-label">CPF</label>

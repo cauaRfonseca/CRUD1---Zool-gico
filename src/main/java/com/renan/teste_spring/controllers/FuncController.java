@@ -60,10 +60,10 @@ public class FuncController {
         System.out.println("Nome: " + func.getCpf());
         System.out.println("######################################");
         int idInt = Math.toIntExact((id-1L));
-        Func userEdit = listFunc.get(idInt);
-        userEdit.setName(func.getName());
-        userEdit.setFunção(func.getFunção());
-        userEdit.setCpf(func.getCpf());
+        Func funcEdit = listFunc.get(idInt);
+        funcEdit.setName(func.getName());
+        funcEdit.setFunção(func.getFunção());
+        funcEdit.setCpf(func.getCpf());
         model.addAttribute("func", func);
         return "redirect:/funcs/index";
     }
@@ -73,7 +73,7 @@ public class FuncController {
         int idInt = Math.toIntExact((id-1L));
         Func funcShow = listFunc.get(idInt);
         model.addAttribute("func", funcShow);
-        return "/funcs/show";
+        return "funcs/show";
     }
 
     @GetMapping("/delete/{id}")

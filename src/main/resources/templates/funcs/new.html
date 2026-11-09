@@ -11,13 +11,13 @@
     <a th:href="@{'/funcs/index'}" class="btn btn-primary float-end">Voltar</a>
     <h1>Novo Usuário</h1>
     <hr>
-    <form method="post" th:action="@{/funcs/create}" th:object="${user}">
+    <form method="post" th:action="@{/funcs/create}" th:object="${func}">
         <div class="mb-3">
             <label for="name" class="form-label">Nome</label>
             <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp" >
         </div>
         <div class="mb-3">
-            <label for="name" class="form-label">E-mail</label>
+            <label for="name" class="form-label">Função</label>
             <input type="text" class="form-control" id="função" name="função" aria-describedby="emailHelp" >
         </div>
         <div class="mb-3">
