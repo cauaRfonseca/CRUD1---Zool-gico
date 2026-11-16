@@ -12,93 +12,133 @@ import java.util.List;
 @Controller
 @RequestMapping("/funcs")
 public class FuncController {
-    private List<Func> listFunc = new ArrayList<Func>();
+
+    private static final String DB_URL = "jdbc:sqlite:meu_app.db";
 
     @GetMapping("/index")
-    public String index(ModelMap model){
+    public String index(ModelMap model) {
         try {
-            // 1. Abre a Conexão
-            Base.open("org.sqlite.JDBC", "jdbc:sqlite:meu_app.db", "", "");
+            Base.open("org.sqlite.JDBC", DB_URL, "", "");
 
-            // 3. Busca Todos os usuários do banco
             List<Func> funcs = new ArrayList<>(Func.findAll());
             model.addAttribute("funcs", funcs);
-
-            // 4. Conta Tudo
             model.addAttribute("size", Func.count());
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
             throw new RuntimeException(e);
         } finally {
-            // 5. Fecha a conexão para não travar o banco
             Base.close();
         }
-
         return "funcs/index";
     }
 
     @GetMapping("/new")
     public String funcNew(ModelMap model) {
-        model.addAttribute("func", new Func());
+        try {
+            Base.open("org.sqlite.JDBC", DB_URL, "", "");
+            model.addAttribute("func", new Func());
+        } finally {
+            Base.close();
+        }
         return "funcs/new";
     }
 
     @PostMapping("/create")
-    public String funcCreate(@ModelAttribute Func func, ModelMap model){
-        // Imprime os dados no console do servidor
-        System.out.println("############ criando novo user ##########################");
-        System.out.println("Nome: " + func.getName());
-        System.out.println("Arroba: " + func.getFunção());
-        System.out.println("Nome: " + func.getCpf());
-        System.out.println("######################################");
+    public String funcCreate(
+            @RequestParam("name") String name,
+            @RequestParam("função") String funcao,
+            @RequestParam("cpf") String cpf
+    ) {
+        try {
+            Base.open("org.sqlite.JDBC", DB_URL, "", "");
 
-        // Passa o objeto de volta para exibir os dados na tela de sucesso
-        long id = listFunc.size()+1;
-        listFunc.add(new Func(func.getName(), func.getFunção(), func.getCpf()));
-        model.addAttribute("func", func);
+            Func novoFunc = new Func();
+            novoFunc.setName(name);
+            novoFunc.setFunção(funcao);
+            novoFunc.setCpf(cpf);
+            novoFunc.saveIt();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        } finally {
+            Base.close();
+        }
         return "redirect:/funcs/index";
     }
 
+    @GetMapping("/show/{id}")
+    public String show(@PathVariable Long id, ModelMap model) {
+        try {
+            Base.open("org.sqlite.JDBC", DB_URL, "", "");
+
+            Func funcShow = Func.findById(id);
+            model.addAttribute("func", funcShow);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        } finally {
+            Base.close();
+        }
+        return "funcs/show";
+    }
+
     @GetMapping("/edit/{id}")
-    public String editFunc(@PathVariable Long id, ModelMap model){
-        int idInt = Math.toIntExact((id-1L));
-        Func funcEdit = listFunc.get(idInt);
-        model.addAttribute("func",  funcEdit );
+    public String editFunc(@PathVariable Long id, ModelMap model) {
+        try {
+            Base.open("org.sqlite.JDBC", DB_URL, "", "");
+
+            Func funcEdit = Func.findById(id);
+            model.addAttribute("func", funcEdit);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        } finally {
+            Base.close();
+        }
         return "funcs/edit";
     }
 
     @PostMapping("/update/{id}")
-    public String userUpdate(@PathVariable Long id, @ModelAttribute Func func, ModelMap model){
-        // Imprime os dados no console do servidor
-        System.out.println("############ EDITANDO user ##########################");
-        System.out.println("ID: " + func.getId());
-        System.out.println("Nome: " + func.getName());
-        System.out.println("Arroba: " + func.getFunção());
-        System.out.println("Nome: " + func.getCpf());
-        System.out.println("######################################");
-        int idInt = Math.toIntExact((id-1L));
-        Func funcEdit = listFunc.get(idInt);
-        funcEdit.setName(func.getName());
-        funcEdit.setFunção(func.getFunção());
-        funcEdit.setCpf(func.getCpf());
-        model.addAttribute("func", func);
-        return "redirect:/funcs/index";
-    }
+    public String userUpdate(
+            @PathVariable Long id,
+            @RequestParam("name") String name,
+            @RequestParam("função") String funcao,
+            @RequestParam("cpf") String cpf
+    ) {
+        try {
+            Base.open("org.sqlite.JDBC", DB_URL, "", "");
 
-    @GetMapping("/show/{id}") // detalhes do usuário
-    public String show(@PathVariable Long id, ModelMap model) {
-        int idInt = Math.toIntExact((id-1L));
-        Func funcShow = listFunc.get(idInt);
-        model.addAttribute("func", funcShow);
-        return "funcs/show";
+            Func funcEdit = Func.findById(id);
+            if (funcEdit != null) {
+                funcEdit.setName(name);
+                funcEdit.setFunção(funcao);
+                funcEdit.setCpf(cpf);
+                funcEdit.saveIt();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        } finally {
+            Base.close();
+        }
+        return "redirect:/funcs/index";
     }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
-        int idInt = Math.toIntExact((id-1L));
-        listFunc.remove(idInt);
+        try {
+            Base.open("org.sqlite.JDBC", DB_URL, "", "");
+
+            Func funcDelete = Func.findById(id);
+            if (funcDelete != null) {
+                funcDelete.delete();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        } finally {
+            Base.close();
+        }
         return "redirect:/funcs/index";
     }
 }
-

@@ -1,33 +1,39 @@
-<!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" data-bs-theme="dark">
+<!doctype html>
+<html lang="pt-BR" xmlns:th="http://www.w3.org/1999/xhtml" data-bs-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <title>Teste Active JDBC</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lista de Funcionários</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 <body>
-<h1>Lista de Funcionários</h1>
-
-<!-- Exibe a contagem total recebida do backend -->
-<p th:text="'Total: ' + ${size}">Total: 0</p>
-
-<table border="1" style="width: 100%; text-align: left; border-collapse: collapse;">
-    <thead style="background-color: #f1f5f9;">
-    <tr>
-        <th style="padding: 8px;">ID</th>
-        <th style="padding: 8px;">Nome</th>
-        <th style="padding: 8px;">CPF</th>
-        <th style="padding: 8px;">Função</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Loop nos usuários gerando as linhas dinamicamente -->
-    <tr th:each="func : ${funcs}">
-        <td style="padding: 8px;" th:text="${func.getId()}">1</td>
-        <td style="padding: 8px;" th:text="${func.getName()}">João</td>
-        <td style="padding: 8px;" th:text="${func.getCpf()}">999</td>
-        <td style="padding: 8px;" th:text="${func.getFunção()}">Zelador</td>
-    </tr>
-    </tbody>
-</table>
+<div class="container pt-3">
+    <a th:href="@{'/funcs/new'}" class="btn btn-success float-end">Novo funcionário</a>
+    <h1>Lista funcionários (<span th:text="${size}">0</span>)</h1>
+    <hr>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Função</th>
+            <th scope="col">CPF</th>
+            <th scope="col">Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="func : ${funcs}">
+            <th scope="row" th:text="${func.getId}">1</th>
+            <td th:text="${func.getName}">Mark</td>
+            <td th:text="${func.getFunção}">Otto</td>
+            <td th:text="${func.getCpf}">@mdo</td>
+            <td>
+                <a  th:href="@{|/funcs/show/${func.id}|}" class="btn btn-success">Detalhes</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>
